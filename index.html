@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Encryption/Decryption</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        #container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(45deg, #3d3d3d, #1a1a1a);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background: linear-gradient(90deg, #1a1a1a, #2d2d2d);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #e52e71, #ff8a00);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>Caesar Cipher Encryption/Decryption</h2>
+        <label for="inputText">Enter Text:</label>
+        <textarea id="inputText" placeholder="Enter your text..."></textarea>
+
+        <label for="shift">Enter Shift Value:</label>
+        <input type="number" id="shift" placeholder="Enter shift value..." />
+
+        <label for="outputText">Result:</label>
+        <textarea id="outputText" readonly></textarea>
+
+        <button onclick="encrypt()">Encrypt</button>
+        <button onclick="decrypt()">Decrypt</button>
+    </div>
+
+    <script>
+        function encrypt() {
+            const inputText = document.getElementById('inputText').value;
+            const shift = parseInt(document.getElementById('shift').value);
+            const encryptedText = caesarCipher(inputText, shift);
+            document.getElementById('outputText').value = encryptedText;
+        }
+
+        function decrypt() {
+            const inputText = document.getElementById('inputText').value;
+            const shift = parseInt(document.getElementById('shift').value);
+            const decryptedText = caesarCipher(inputText, -shift);
+            document.getElementById('outputText').value = decryptedText;
+        }
+
+        function caesarCipher(text, shift) {
+            return text.replace(/[a-zA-Z]/g, function (char) {
+                const isUpperCase = char === char.toUpperCase();
+                const base = isUpperCase ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
+                return String.fromCharCode((char.charCodeAt(0) - base + shift + 26) % 26 + base);
+            });
+        }
+    </script>
+</body>
+</html>
